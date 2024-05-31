@@ -8,7 +8,7 @@
 
 # Compiled class file
 *.class
-/backend/target/
+target/
 
 # Log file
 *.log
