@@ -5,6 +5,7 @@
 # Intellij Settings
 .idea
 .DS_Store
+*.iml
 
 # Compiled class file
 *.class
