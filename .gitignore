@@ -1,5 +1,14 @@
+# Default ignored files
+/shelf/
+/.idea/workspace.xml
+
+# Intellij Settings
+.idea
+.DS_Store
+
 # Compiled class file
 *.class
+/backend/target/
 
 # Log file
 *.log
