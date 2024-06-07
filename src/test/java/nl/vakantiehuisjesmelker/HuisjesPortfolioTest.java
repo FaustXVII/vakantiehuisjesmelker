@@ -3,6 +3,8 @@ package nl.vakantiehuisjesmelker;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class HuisjesPortfolioTest {
@@ -66,10 +68,11 @@ class HuisjesPortfolioTest {
         /// Given
         final var portfolio = new HuisjesPortfolio();
         final var overzicht = portfolio.getOverzicht();
-        final var huisjeZoekCriteria = new ZoekCriteria();
-        huisjeZoekCriteria.setAantalPersonen(6);
+        final var huisjeOpties = new ZoekCriteria();
+        huisjeOpties.setAantalPersonen(6);
+        huisjeOpties.setHuisdierToegestaan(Optional.of(true));
 
-        overzicht.add(new Huisje(huisjeZoekCriteria));
+        overzicht.add(new Huisje(huisjeOpties));
 
         // When
         final var zoekCriteria = new ZoekCriteria();
@@ -85,14 +88,109 @@ class HuisjesPortfolioTest {
         // Given
         final var portfolio = new HuisjesPortfolio();
         final var overzicht = portfolio.getOverzicht();
-        final var huisjeZoekCriteria = new ZoekCriteria();
-        huisjeZoekCriteria.setAantalPersonen(4);
+        final var huisjeOpties = new ZoekCriteria();
+        huisjeOpties.setAantalPersonen(4);
 
-        overzicht.add(new Huisje(huisjeZoekCriteria));
+        overzicht.add(new Huisje(huisjeOpties));
 
         // When
         final var zoekCriteria = new ZoekCriteria();
         zoekCriteria.setAantalPersonen(6);
+        final var result = portfolio.getOverzicht(zoekCriteria);
+
+        // Then
+        assertEquals(0, result.size());
+    }
+
+    @Test
+    void givenPortfolio_withHuisDierToegestaanTrue_whenGetOverzicht_withZoekCriteriaMetHuisdier_thenResultIsNotEmpty(){
+        // Given
+        final var portfolio = new HuisjesPortfolio();
+        final var overzicht = portfolio.getOverzicht();
+        final var huisjeOpties = new ZoekCriteria();
+        huisjeOpties.setHuisdierToegestaan(Optional.of(true));
+
+        overzicht.add(new Huisje(huisjeOpties));
+
+        // When
+        final var zoekCriteria = new ZoekCriteria();
+        zoekCriteria.setHuisdierToegestaan(Optional.of(true));
+        final var result = portfolio.getOverzicht(zoekCriteria);
+
+        // Then
+        assertNotEquals(0, result.size());
+    }
+
+    @Test
+    void givenPortfolio_withHuisDierToegestaanFalse_whenGetOverzicht_withZoekCriteriaMetHuisdier_thenResultIsNotEmpty(){
+        // Given
+        final var portfolio = new HuisjesPortfolio();
+        final var overzicht = portfolio.getOverzicht();
+        final var huisjeOpties = new ZoekCriteria();
+        huisjeOpties.setHuisdierToegestaan(Optional.of(false));
+
+        overzicht.add(new Huisje(huisjeOpties));
+
+        // When
+        final var zoekCriteria = new ZoekCriteria();
+        zoekCriteria.setHuisdierToegestaan(Optional.of(true));
+        final var result = portfolio.getOverzicht(zoekCriteria);
+
+        // Then
+        assertEquals(0, result.size());
+    }
+
+    @Test
+    void givenPortfolio_withZwembadTrue_whenGetOverzicht_withZoekCriteriaMetZwembad_thenResultIsNotEmpty(){
+        // Given
+        final var portfolio = new HuisjesPortfolio();
+        final var overzicht = portfolio.getOverzicht();
+        final var huisjeOpties = new ZoekCriteria();
+        huisjeOpties.setZwembad(Optional.of(true));
+
+        overzicht.add(new Huisje(huisjeOpties));
+
+        // When
+        final var zoekCriteria = new ZoekCriteria();
+        zoekCriteria.setZwembad(Optional.of(true));
+        final var result = portfolio.getOverzicht(zoekCriteria);
+
+        // Then
+        assertNotEquals(0, result.size());
+    }
+
+    @Test
+    void givenPortfolio_withZwembadfalse_whenGetOverzicht_withZoekCriteriaMetZwembad_thenResultIsEmpty(){
+        // Given
+        final var portfolio = new HuisjesPortfolio();
+        final var overzicht = portfolio.getOverzicht();
+        final var huisjeOpties = new ZoekCriteria();
+        huisjeOpties.setZwembad(Optional.of(false));
+
+        overzicht.add(new Huisje(huisjeOpties));
+
+        // When
+        final var zoekCriteria = new ZoekCriteria();
+        zoekCriteria.setZwembad(Optional.of(true));
+        final var result = portfolio.getOverzicht(zoekCriteria);
+
+        // Then
+        assertEquals(0, result.size());
+    }
+
+    @Test
+    void givenPortfolio_withZwembadtrue_whenGetOverzicht_withZoekCriteriaMetZwembadFalse_thenResultIsEmpty(){
+        // Given
+        final var portfolio = new HuisjesPortfolio();
+        final var overzicht = portfolio.getOverzicht();
+        final var huisjeOpties = new ZoekCriteria();
+        huisjeOpties.setZwembad(Optional.of(true));
+
+        overzicht.add(new Huisje(huisjeOpties));
+
+        // When
+        final var zoekCriteria = new ZoekCriteria();
+        zoekCriteria.setZwembad(Optional.of(false));
         final var result = portfolio.getOverzicht(zoekCriteria);
 
         // Then
