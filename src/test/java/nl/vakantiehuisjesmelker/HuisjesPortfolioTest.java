@@ -196,4 +196,13 @@ class HuisjesPortfolioTest {
         // Then
         assertEquals(0, result.size());
     }
+
+
+    // Het valt ons op dat ZoekCriteria niet goed aansluit op de werkelijkheid.
+    // Huisjes hebben opties en die zijn daadwerkelijk wel anders dan de ZoekCriteria die een klant heeft
+    // Wellicht een idee om dit om te gooien naar een ZoekCriteriaLijst en een HuisjesOptieLeist.
+    // ZoekCriteriaLijst<HuisOpties>
+    // HuisjesOptieLeist<HuisOpties>
+    // Waar MetHuisdieren, HuisOpties extend.
+    // Waar alle HuisOpties een eigen implementatie hebben van een filterMethode dat een Predicate terug geeft. 🤔
 }
